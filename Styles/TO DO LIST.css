@@ -1,0 +1,113 @@
+body {
+    background-color: #35424a; /* Dark blue-gray background */
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.todo-wrapper {
+    margin-top: 50px;
+    background-color: #f5f5f5; /* Light gray background */
+    border-radius: 10px; /* Slightly rounded corners */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    font-weight: 400; /* Normal font weight */
+}
+
+.todo-wrapper h2 {
+    margin: 0;
+    color: #333; /* Dark text color */
+}
+
+.todo-wrapper p {
+    font-style: italic;
+    color: #666;
+    margin: 5px 0;
+}
+
+.todo-wrapper ol {
+    margin: 15px 0;
+}
+
+.todo-wrapper ol li {
+    margin: 5px 0;
+    padding: 8px; /* Increased padding */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: background-color 0.3s ease-out; /* Smooth background color transition */
+    transition: background-color 0.3s ease-out;
+}
+
+.todo-wrapper ol li:nth-child(even) {
+    background: #e0e0e0; /* Lighter background for even items */
+}
+
+.todo-wrapper .completed {
+    text-decoration: line-through;
+    color: #888; /* Slightly lighter text color for completed items */
+}
+
+.todo-wrapper .pretty-button {
+    margin: 10px 2px;
+    padding: 8px 20px; /* Increased padding */
+    border-radius: 10px;
+    background-color: #ff6f61; /* Coral color for buttons */
+    border: none;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    font-size: small;
+}
+
+.todo-wrapper .pretty-button:hover {
+    cursor: pointer;
+    opacity: 0.85; /* Slightly increased opacity on hover */
+}
+
+.todo-wrapper input {
+    padding: 6px 8px; /* Increased padding */
+}
+
+.todo-wrapper form {
+    display: inline-block;
+}
+
+#control-wrapper {
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.todo-wrapper #clear-button {
+    background-color: #35424a; /* Dark blue-gray for the clear button */
+}
+
+.todo-wrapper #empty-button {
+    background-color: #9e9e9e; /* Dark gray for the empty button */
+}
+
+.todo-wrapper #save-button {
+    background-color: #35424a; /* Dark blue-gray for the save button */
+}
+
+@media only screen and (min-width: 1400px) {
+    .todo-wrapper {
+        width: 50%;
+    }
+
+    .todo-wrapper input {
+        width: 600px;
+    }
+}
+
+@media only screen and (max-width: 1399px) and (min-width: 750px) {
+    .todo-wrapper {
+        width: 75%;
+    }
+
+    .todo-wrapper input {
+        width: 400px;
+    }
+}

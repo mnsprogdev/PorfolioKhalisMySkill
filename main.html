@@ -1,0 +1,125 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="Styles/TO DO LIST.css">
+    <script src="TO DO LIST.js"></script>
+
+</head>
+<body>
+    <div class="todo-wrapper">
+        <h2>My to-do list</h2>
+        <p>Double-click an item to mark it complete.</p>
+
+        <form name="todo-adder">
+            <input type="text" id="todo-entry-box" />
+        </form>
+        <button id="add-button" class="pretty-button">Add</button>
+        <br />
+        <ol id="todo-list">
+        </ol>
+        <div id="control-wrapper">
+            <button id="clear-completed-button" onclick="clearCompletedToDoItems()" class="pretty-button">Clear Completed</button>
+            <button id="empty-button" onclick="emptyList()" class="pretty-button">Empty List</button>
+            <button id="save-button" onclick="saveList()" class="pretty-button">Save List</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        var addButton = document.getElementById("add-button");
+    addButton.addEventListener("click", addToDoItem);
+
+    var clearCompletedButton = document.getElementById("clear-completed-button");
+    clearCompletedButton.addEventListener("click", clearCompletedToDoItems);
+
+    var emptyButton = document.getElementById("empty-button");
+    emptyButton.addEventListener("click", emptyList);
+
+    var saveButton = document.getElementById("save-button");
+    saveButton.addEventListener("click", saveList);
+
+    var toDoEntryBox = document.getElementById("todo-entry-box");
+    var toDoList = document.getElementById("todo-list");
+
+    function newToDoItem(itemText, completed) {
+        var toDoItem = document.createElement("li");
+        var toDoText = document.createTextNode(itemText);
+        toDoItem.appendChild(toDoText);
+
+        if (completed) {
+            toDoItem.classList.add("completed");
+        }
+
+        toDoList.appendChild(toDoItem);
+        toDoItem.addEventListener("dblclick", toggleToDoItemState);
+    }
+
+    function addToDoItem() {
+        var itemText = toDoEntryBox.value;
+        if (itemText.trim() !== "") {
+            newToDoItem(itemText, false);
+            toDoEntryBox.value = "";
+        }
+    }
+
+    function toggleToDoItemState() {
+        if (this.classList.contains("completed")) {
+            this.classList.remove("completed");
+        } else {
+            this.classList.add("completed");
+        }
+    }
+
+    function clearCompletedToDoItems() {
+        var completedItems = toDoList.getElementsByClassName("completed");
+
+        while (completedItems.length > 0) {
+            completedItems.item(0).remove();
+        }
+    }
+
+    function emptyList() {
+        var toDoItems = toDoList.children;
+        while (toDoItems.length > 0) {
+            toDoItems.item(0).remove();
+        }
+    }
+
+    function saveList() {
+        var toDos = [];
+
+        for (var i = 0; i < toDoList.children.length; i++) {
+            var toDo = toDoList.children.item(i);
+
+            var toDoInfo = {
+                "task": toDo.innerText,
+                "completed": toDo.classList.contains("completed")
+            };
+
+            toDos.push(toDoInfo);
+        }
+
+        localStorage.setItem("toDos", JSON.stringify(toDos));
+        console.log("List saved to local storage");
+    }
+
+    function loadList() {
+        if (localStorage.getItem("toDos") != null) {
+            var toDos = JSON.parse(localStorage.getItem("toDos"));
+
+            for (var i = 0; i < toDos.length; i++) {
+                var toDo = toDos[i];
+                newToDoItem(toDo.task, toDo.completed);
+            }
+        }
+    }
+
+    loadList();
+    </script>
+</body>
+</html>
